@@ -1,0 +1,30 @@
+.button {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.button-primary {
+  background: var(--color-button);
+}
+
+.button-primary:hover {
+  background: var(--color-button-hover);
+}
+
+.button-alert {
+  background: var(--color-alert);
+}
+
+.button-alert:hover {
+  background: var(--color-alert-hover);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--color-disabled);
+  color: var(--color-font);
+}

@@ -1,0 +1,40 @@
+.input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 0.4rem;
+  border: 3px solid transparent;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* states */
+
+.input-default {
+  border-color: transparent;
+}
+
+.input-valid {
+  border-color: var(--color-valid); /* green */
+}
+
+.input-invalid {
+  border-color: var(--color-alert); /* red */
+}
+
+.input-warning {
+  border-color: var(--color-warning); /* orange */
+}
+
+/* messages */
+
+.input-message {
+  font-size: 0.75rem;
+}
+
+.message-error {
+  color: var(--color-alert);
+}
+
+.message-warning {
+  color: var(--color-warning);
+}
