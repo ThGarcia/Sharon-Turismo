@@ -1,15 +1,17 @@
 import { useState } from "react";
 import "./Input.css";
 
-function InputField({
+function Input({
   label,
   value,
   onChange,
+  onBlur,
   validator,
   errorMessage = "Valor inválido",
   required = false,
   placeholder = "",
   type = "text",
+  transformDisplay,
 }) {
   const [touched, setTouched] = useState(false);
 
@@ -25,6 +27,8 @@ function InputField({
     else status = "valid";
   }
 
+    const displayValue = transformDisplay ? transformDisplay(value) : value;
+
   return (
     <div>
       {label && <label className="form-label">{label}</label>}
@@ -34,7 +38,10 @@ function InputField({
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        onBlur={() => setTouched(true)}
+        onBlur={(e) => {
+          setTouched(true);
+          onBlur && onBlur(e);
+        }}
         className={`input input-${status}`}
       />
 
@@ -51,4 +58,4 @@ function InputField({
   );
 }
 
-export default InputField;
+export default Input;
