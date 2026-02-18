@@ -191,6 +191,7 @@ function Form() {
   const handleConfirm = () => {
     sendToWhatsapp(modalData);
     setShowModal(false);
+    navigate("/");
   };
 
   const handleCancel = () => {

@@ -20,6 +20,8 @@
   border-radius: 12px;
   width: 90%;
   max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.2s ease;
   text-align: left;
@@ -28,11 +30,19 @@
   gap: 1rem;
 }
 
+.modal-content {
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
 .modal-buttons {
   display: flex;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 0.56rem;
   justify-content: flex-end;
+  position: sticky;
+  bottom: 0;
+  background: white;
+  padding-top: 0.5rem;
 }
 
 .modal-data {
