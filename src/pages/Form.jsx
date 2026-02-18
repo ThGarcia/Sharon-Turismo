@@ -79,6 +79,20 @@ function Form() {
     return message;
   };
 
+  const filledData =
+    clientName ||
+    clientCpf ||
+    clientBirth ||
+    clientPhone ||
+    clientCep ||
+    clientStreet ||
+    clientNumber ||
+    clientNeighborhood ||
+    clientCity ||
+    ClientUf ||
+    clientComp ||
+    companions.some((c) => c.name || c.cpf || c.birth);
+
   const handleDelCompanion = (index) => {
     setCompanions(companions.filter((_, i) => i !== index));
   };
@@ -94,7 +108,16 @@ function Form() {
   };
 
   const handleHome = () => {
-    navigate("/");
+    if (!filledData) {
+      navigate("/");
+      return;
+    }
+    const confirmHandleHome = window.confirm(
+      "Você tem certeza? Todos os dados preenchidos serão perdidos.",
+    );
+    if (confirmHandleHome) {
+      navigate("/");
+    }
   };
 
   const onSubmit = (e) => {
@@ -213,6 +236,7 @@ function Form() {
             validator={validateFullName}
             errorMessage="Digite nome e sobrenome válidos"
             onChange={(v) => setClientName(v)}
+            transformDisplay={capitalizeName}
           />
           <Input
             label="CPF"
@@ -312,6 +336,7 @@ function Form() {
             label="Complemento"
             value={clientComp}
             onChange={(v) => setClientComp(v)}
+            transformDisplay={capitalizeName}
           />
         </div>
 
@@ -329,6 +354,7 @@ function Form() {
               validator={validateFullName}
               errorMessage="Nome inválido"
               onChange={(v) => handleCompanionChange(index, "name", v)}
+              transformDisplay={capitalizeName}
             />
             <Input
               label="CPF"
@@ -357,7 +383,7 @@ function Form() {
         <div className="form-button">
           <Button text="Adicionar Acompanhante" onClick={handleAddCompanion} />
           <Button text="Escolher outra viagem!" onClick={handleHome} />
-          <Button text="Finalizar Compra" type="submit" disabled={!FormIsValid} />
+          <Button text="Enviar Pedido" type="submit" disabled={!FormIsValid} />
         </div>
       </form>
 

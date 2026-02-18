@@ -35,7 +35,7 @@ function Input({
 
       <input
         type={type}
-        value={value}
+        value={displayValue}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
         onBlur={(e) => {
