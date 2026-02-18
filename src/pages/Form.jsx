@@ -22,6 +22,7 @@ import {
 
 import Input from "../components/input/Input";
 import Modal from "../components/modal/Modal";
+import ConfirmModal from "../components/modal/ConfirmModal";
 import Button from "../components/button/Button";
 
 function Form() {
@@ -48,6 +49,8 @@ function Form() {
   const [preview, setPreview] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState(null);
+  const [showConfirmChange, setShowConfirmChange] = useState(false);
+  const [companionToDelete, setCompanionToDelete] = useState(null);
   const people = companions.length + 1;
 
   const dataMessage = (data) => {
@@ -112,12 +115,7 @@ function Form() {
       navigate("/");
       return;
     }
-    const confirmHandleHome = window.confirm(
-      "Você tem certeza? Todos os dados preenchidos serão perdidos.",
-    );
-    if (confirmHandleHome) {
-      navigate("/");
-    }
+    setShowConfirmChange(true);
   };
 
   const onSubmit = (e) => {
@@ -377,7 +375,15 @@ function Form() {
             <Button
               text="Excluir acompanhante"
               variant="alert"
-              onClick={() => handleDelCompanion(index)}
+              onClick={() => {
+                const c = companions[index];
+                const hasData = c.name || c.cpf || c.birth;
+                if (!hasData) {
+                  handleDelCompanion(index);
+                  return;
+                }
+                setCompanionToDelete(index);
+              }}
             />
           </div>
         ))}
@@ -395,6 +401,31 @@ function Form() {
           onCancel={handleCancel}
         />
       )}
+
+      <ConfirmModal
+        open={companionToDelete !== null}
+        title="Excluir acompanhante?"
+        message="Os dados deste acompanhante serão removidos permanentemente."
+        confirmText="Excluir"
+        cancelText="Cancelar"
+        onConfirm={() => {
+          handleDelCompanion(companionToDelete);
+          setCompanionToDelete(null);
+        }}
+        onCancel={() => setCompanionToDelete(null)}
+      />
+      <ConfirmModal
+        open={showConfirmChange}
+        title="Escolher outra viagem?"
+        message="Se continuar, todos os dados preenchidos serão perdidos."
+        confirmText="Continuar"
+        cancelText="Cancelar"
+        onConfirm={() => {
+          setShowConfirmChange(false);
+          navigate("/");
+        }}
+        onCancel={() => setShowConfirmChange(false)}
+      />
     </div>
   );
 }
