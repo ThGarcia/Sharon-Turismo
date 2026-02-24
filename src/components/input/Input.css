@@ -10,7 +10,7 @@
 /* states */
 
 .input-default {
-  border-color: transparent;
+  border-color: var(--color-border);
 }
 
 .input-valid {

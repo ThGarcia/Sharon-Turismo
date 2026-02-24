@@ -20,6 +20,8 @@
   width: 100%;
   padding: 0.5rem 1rem;
   border-radius: 0.4rem;
+  outline: none;
+  border: 3px solid var(--color-border);
 }
 
 .select:focus {

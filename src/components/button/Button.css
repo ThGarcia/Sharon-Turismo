@@ -8,6 +8,7 @@
 
 .button-primary {
   background: var(--color-button);
+  color: var(--color-button-font);
 }
 
 .button-primary:hover {
@@ -16,6 +17,7 @@
 
 .button-alert {
   background: var(--color-alert);
+  color: var(--color-button-font);
 }
 
 .button-alert:hover {
