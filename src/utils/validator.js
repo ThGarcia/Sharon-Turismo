@@ -63,3 +63,37 @@ export async function fetchAddressByCEP(cep) {
     return null;
   }
 }
+
+// Date Validator: format dd/mm/yyyy and valid calendar date
+export function validateDate(date) {
+  if (!date) return false;
+  const parts = date.split("/");
+  if (parts.length !== 3) return false;
+  const [dayStr, monthStr, yearStr] = parts;
+  if (dayStr.length !== 2 || monthStr.length !== 2 || yearStr.length !== 4)
+    return false;
+  const day = Number(dayStr);
+  const month = Number(monthStr);
+  const year = Number(yearStr);
+  if (
+    isNaN(day) ||
+    isNaN(month) ||
+    isNaN(year) ||
+    month < 1 ||
+    month > 12
+  ) {
+    return false;
+  }
+
+  const lastDayOfMonth = new Date(year, month, 0).getDate();
+  if (day < 1 || day > lastDayOfMonth) {
+    return false;
+  }
+
+  const today = new Date();
+  const inputDate = new Date(year, month - 1, day);
+  if (inputDate > today) {
+    return false;
+  }
+  return true;
+}

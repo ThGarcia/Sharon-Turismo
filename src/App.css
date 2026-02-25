@@ -28,6 +28,10 @@
   outline: none;
 }
 
+.select-valid {
+  border: 2px solid var(--color-valid);
+}
+
 .foot {
   gap: 1rem;
   display: flex;

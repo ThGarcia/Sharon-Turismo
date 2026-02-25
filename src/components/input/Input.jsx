@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Input.css";
 
 function Input({
@@ -12,22 +12,26 @@ function Input({
   placeholder = "",
   type = "text",
   transformDisplay,
+  inputMode,
 }) {
   const [touched, setTouched] = useState(false);
 
   const isEmpty = !value || value.trim() === "";
   const isValid = validator ? validator(value) : true;
-
   let status = "default";
-
   if (touched) {
     if (required && isEmpty) status = "invalid";
     else if (!required && isEmpty) status = "warning";
     else if (!isValid) status = "invalid";
     else status = "valid";
   }
+  const displayValue = transformDisplay ? transformDisplay(value) : value;
 
-    const displayValue = transformDisplay ? transformDisplay(value) : value;
+  useEffect(() => {
+    if (value && value.trim() !== "") {
+      setTouched(true);
+    }
+  }, [value]);
 
   return (
     <div>
@@ -35,6 +39,7 @@ function Input({
 
       <input
         type={type}
+        inputMode={inputMode}
         value={displayValue}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}

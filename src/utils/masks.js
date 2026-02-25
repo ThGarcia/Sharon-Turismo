@@ -14,6 +14,12 @@ export function formatDate(date) {
   return `${day}/${month}/${year}`;
 }
 
+export function maskDate(value) {
+  const digits = value.replace(/\D/g, "").slice(0, 8);
+  return digits
+    .replace(/(\d{2})(\d)/, "$1/$2")
+    .replace(/(\d{2})(\d)/, "$1/$2");
+}
 
 // Phone → (xx) xxxxx-xxxx || (xx) xxxx-xxxx
 export function maskPhone(value) {

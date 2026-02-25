@@ -133,9 +133,9 @@ export const travels = [
         img: caioba,
         subtitle: "Imagem panôramica da Ilha do Mel.",
         text: "Leva você para Caiobá e Ilha do Mel 🤩🥰😎",
-        departure: "25/03/2026 às 22:00h",
-        return: "29/03/2026",
-        date: "25/03 à 29/03",
+        departure: "08/04/2026 às 22:00h",
+        return: "12/04/2026",
+        date: "08/04 à 12/04",
         list: [
             "Ônibus executivo de turismo.",
             "3 diárias no Praia Hotel Caiobá.",

@@ -11,13 +11,14 @@ import {
   validateCEP,
   normalizeHouseNumber,
   fetchAddressByCEP,
+  validateDate,
 } from "../utils/validator";
 import {
   maskCPF,
   maskPhone,
   maskCEP,
   capitalizeName,
-  formatDate,
+  maskDate,
 } from "../utils/masks";
 
 import Input from "../components/input/Input";
@@ -51,6 +52,7 @@ function Form() {
   const [modalData, setModalData] = useState(null);
   const [showConfirmChange, setShowConfirmChange] = useState(false);
   const [companionToDelete, setCompanionToDelete] = useState(null);
+  const [cepUnknown, setCepUnknown] = useState(false);
   const people = companions.length + 1;
 
   const dataMessage = (data) => {
@@ -205,7 +207,7 @@ function Form() {
   const FormIsValid =
     validateFullName(clientName) &&
     validateCPF(clientCpf) &&
-    clientBirth &&
+    validateDate(clientBirth) &&
     validatePhone(clientPhone) &&
     (!clientCep || validateCEP(clientCep)) &&
     clientStreet &&
@@ -213,7 +215,8 @@ function Form() {
     clientCity &&
     ClientUf &&
     companions.every(
-      (c) => validateFullName(c.name) && validateCPF(c.cpf) && c.birth,
+      (c) =>
+        validateFullName(c.name) && validateCPF(c.cpf) && validateDate(c.birth),
     );
 
   return (
@@ -244,15 +247,18 @@ function Form() {
             required
             validator={validateCPF}
             errorMessage="CPF inválido"
+            inputMode="numeric"
             onChange={(v) => setClientCpf(maskCPF(v))}
           />
           <Input
             label="Data de Nascimento"
-            type="date"
             value={clientBirth}
+            placeholder="00/00/0000"
             required
-            errorMessage="Informe a data de nascimento"
-            onChange={(v) => setClientBirth(v)}
+            validator={validateDate}
+            errorMessage="Data inválida"
+            inputMode="numeric"
+            onChange={(v) => setClientBirth(maskDate(v))}
           />
           <Input
             label="Telefone para contato"
@@ -261,6 +267,7 @@ function Form() {
             required
             validator={validatePhone}
             errorMessage="Telefone inválido"
+            inputMode="tel"
             onChange={(v) => setClientPhone(maskPhone(v))}
           />
         </div>
@@ -273,28 +280,50 @@ function Form() {
             placeholder="xxxxx-xxx"
             validator={validateCEP}
             errorMessage="CEP inválido"
-            onChange={(v) => setClientCep(maskCEP(v))}
-            onBlur={async () => {
-              if (!clientCep) return;
-              if (!validateCEP(clientCep)) return;
-              const addr = await fetchAddressByCEP(clientCep);
-              if (!addr) return;
-              setClientStreet(addr.street);
-              setClientNeighborhood(addr.neighborhood);
-              setClientCity(addr.city);
-              setClientUf(addr.state);
+            inputMode="numeric"
+            onChange={async (v) => {
+              const masked = maskCEP(v);
+              setClientCep(masked);
+              const clean = masked.replace(/\D/g, "");
+              if (clean.length < 8) {
+                setClientStreet("");
+                setClientNeighborhood("");
+                setClientCity("");
+                setClientUf("");
+                setCepUnknown(false);
+                return;
+              }
+              const addr = await fetchAddressByCEP(masked);
+              if (addr) {
+                setClientStreet(addr.street);
+                setClientNeighborhood(addr.neighborhood);
+                setClientCity(addr.city);
+                setClientUf(addr.state);
+                setCepUnknown(false);
+              } else {
+                setClientStreet("");
+                setClientNeighborhood("");
+                setClientCity("");
+                setClientUf("");
+                setCepUnknown(true);
+              }
             }}
           />
+          {cepUnknown && (
+            <p className="input-message message-warning">* CEP desconhecido</p>
+          )}
           <Input
-            label="Rua/Av"
+            label="Rua"
             value={clientStreet}
             required
+            placeholder="Rua ou Avenida"
             errorMessage="Informe a rua"
             onChange={(v) => setClientStreet(v)}
             transformDisplay={capitalizeName}
           />
           <Input
             label="Número"
+            placeholder="N/A"
             value={clientNumber}
             onChange={(v) => setClientNumber(v)}
           />
@@ -302,6 +331,7 @@ function Form() {
             label="Bairro"
             value={clientNeighborhood}
             required
+            placeholder="Bairro"
             errorMessage="Informe o bairro"
             onChange={(v) => setClientNeighborhood(v)}
             transformDisplay={capitalizeName}
@@ -310,6 +340,7 @@ function Form() {
             label="Cidade"
             value={clientCity}
             required
+            placeholder="Cidade"
             errorMessage="Informe a cidade"
             onChange={(v) => setClientCity(v)}
             transformDisplay={capitalizeName}
@@ -317,7 +348,7 @@ function Form() {
           <div>
             <label className="form-label">Estado:</label>
             <select
-              className="select"
+              className={`select ${ClientUf ? "select-valid" : ""}`}
               value={ClientUf}
               onChange={(e) => setClientUf(e.target.value)}
             >
@@ -334,6 +365,7 @@ function Form() {
           <Input
             label="Complemento"
             value={clientComp}
+            placeholder="Apartamento, Casa, Etc..."
             onChange={(v) => setClientComp(v)}
             transformDisplay={capitalizeName}
           />
@@ -350,6 +382,7 @@ function Form() {
               label="Nome Completo"
               value={c.name}
               required
+              placeholder="Nome completo..."
               validator={validateFullName}
               errorMessage="Nome inválido"
               onChange={(v) => handleCompanionChange(index, "name", v)}
@@ -359,17 +392,23 @@ function Form() {
               label="CPF"
               value={c.cpf}
               required
+              placeholder="xxx.xxx.xxx-xx"
               validator={validateCPF}
               errorMessage="CPF inválido"
+              inputMode="numeric"
               onChange={(v) => handleCompanionChange(index, "cpf", maskCPF(v))}
             />
             <Input
               label="Data de Nascimento"
-              type="date"
               value={c.birth}
+              placeholder="00/00/0000"
               required
-              errorMessage="Informe a data"
-              onChange={(v) => handleCompanionChange(index, "birth", v)}
+              validator={validateDate}
+              errorMessage="Data inválida"
+              inputMode="numeric"
+              onChange={(v) =>
+                handleCompanionChange(index, "birth", maskDate(v))
+              }
             />
 
             <Button
