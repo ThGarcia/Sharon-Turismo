@@ -63,7 +63,7 @@ function Form() {
       `Cliente:\n` +
       `Nome: ${data.client.name}\n` +
       `CPF: ${data.client.cpf}\n` +
-      `Data de Nascimento: ${formatDate(data.client.birth)}\n` +
+      `Data de Nascimento: ${data.client.birth}\n` +
       `Telefone: ${data.client.phone}\n\n` +
       `Endereço:\n` +
       `${data.client.address.street}, ${data.client.address.number}\n` +

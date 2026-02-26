@@ -8,12 +8,6 @@ export function maskCPF(value) {
 }
 
 // Date → dd/mm/yyyy
-export function formatDate(date) {
-  if (!date) return "";
-  const [year, month, day] = date.split("-");
-  return `${day}/${month}/${year}`;
-}
-
 export function maskDate(value) {
   const digits = value.replace(/\D/g, "").slice(0, 8);
   return digits

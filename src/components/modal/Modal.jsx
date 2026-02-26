@@ -4,7 +4,7 @@ import {
   maskCPF,
   maskPhone,
   maskCEP,
-  formatDate,
+  maskDate,
   capitalizeName,
 } from "../../utils/masks";
 import Button from "../button/Button";
@@ -43,7 +43,7 @@ function Modal({ data, onConfirm, onCancel }) {
             </div>
             <div className="modal-data">
               <label className="modal-label">Data de Nascimento: </label>
-              <p>{formatDate(data.client.birth)}</p>
+              <p>{maskDate(data.client.birth)}</p>
             </div>
             <div className="modal-data">
               <label className="modal-label">Telefone: </label>
@@ -85,7 +85,7 @@ function Modal({ data, onConfirm, onCancel }) {
                 </div>
                 <div className="modal-data">
                   <label className="modal-label">Data de nascimento:</label>
-                  <p>{formatDate(c.birth)}</p>
+                  <p>{maskDate(c.birth)}</p>
                 </div>
               </div>
             ))}
