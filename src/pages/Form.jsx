@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { data, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { travels } from "../data/travels";
 import { states } from "../data/selects";
@@ -20,6 +20,7 @@ import {
   capitalizeName,
   maskDate,
 } from "../utils/masks";
+import { calculateAge, getThermasPriceByAge } from "../utils/calc";
 
 import Input from "../components/input/Input";
 import Modal from "../components/modal/Modal";
@@ -120,6 +121,20 @@ function Form() {
     setShowConfirmChange(true);
   };
 
+  const calculateTotal = () => {
+    if (id !== "laranjais") {
+      return travel.price * people;
+    }
+    let total = 0;
+    const clientAge = calculateAge(clientBirth);
+    total += getThermasPriceByAge(clientAge);
+    companions.forEach((c) => {
+      const age = calculateAge(c.birth);
+      total += getThermasPriceByAge(age);
+    });
+    return total;
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -180,11 +195,12 @@ function Form() {
         },
       },
       companions,
+      price: calculateTotal().toFixed(2).replace(".", ","),
     };
     setModalData(data);
     setShowModal(true);
     {
-      console.log("Dados para envio:", data);
+      //console.log("Dados para envio:", data);
     }
   };
 
@@ -198,9 +214,12 @@ function Form() {
     setShowModal(false);
   };
 
-  const sendToWhatsapp = (data) => {
-    const message = dataMessage(data);
+  const sendToWhatsapp = () => {
+    const total = calculateTotal();
+    const message =
+      dataMessage(modalData) + `Valor: R$ ${modalData.price}`;
     const url = `https://wa.me/5548984972129?text=${encodeURIComponent(message)}`;
+    console.log(dataMessage(modalData));
     window.open(url, "_blank");
   };
 

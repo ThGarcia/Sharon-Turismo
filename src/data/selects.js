@@ -1,7 +1,7 @@
 // travel destinations
 export const travels = [
   { id: "caioba", name: "Caiobá" },
-  { id: "capitolio", name: "Capitólio" },
+  /*{ id: "capitolio", name: "Capitólio" },*/
   { id: "historicas", name: "Cidades Históricas" },
   { id: "curitiba", name: "Curitiba" },
   { id: "foziguacu", name: "Foz do Iguaçu" },

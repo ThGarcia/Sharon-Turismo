@@ -25,7 +25,7 @@ export const travels = [
             "Seguro viagem individual.",
         ],
         obs: "",
-        value: 1680.00,
+        price: 1680.00,
     },
     {
         id: "historicas",
@@ -46,7 +46,7 @@ export const travels = [
             "Guia acompanhante local.",
         ],
         obs: "Não incluso ingressos em visitações (igrejas, museus, atrativos), quanto houver.",
-        value: 3140.00,
+        price: 3140.00,
     },
     {
         id: "laranjais",
@@ -62,7 +62,7 @@ export const travels = [
             "Ingresso no parque aquático.",
         ],
         obs: "Valor por pessoa: até 2 anos: R$ 50,00 | 2 a 7 anos: R$ 220,00 | Acima de 7 anos: R$ 296,00.",
-        value: 0,
+        price: 0,
     },
     {
         id: "curitiba",
@@ -82,7 +82,7 @@ export const travels = [
             "Kit lanche na ida.",
         ],
         obs: "",
-        value: 1350.00,
+        price: 1350.00,
     },
     {
         id: "monteverde",
@@ -102,7 +102,7 @@ export const travels = [
             "Kit lanche na ida.",
         ],
         obs: "",
-        value: 1380.00,
+        price: 1380.00,
     },
     {
         id: "foziguacu",
@@ -125,7 +125,7 @@ export const travels = [
             "Parque da aves (sem ingresso).",
         ],
         obs: "",
-        value: 1380.00,
+        price: 1380.00,
     },
     {
         id: "caioba",
@@ -144,7 +144,7 @@ export const travels = [
             "Passeio de barco para a Ilha do Mel com ingresso incluso.",
         ],
         obs: "",
-        value: 1680.00,
+        price: 1680.00,
     },
 ];
 
