@@ -70,16 +70,22 @@ function Form() {
       `${data.client.address.street}, ${data.client.address.number}\n` +
       (data.client.address.comp ? `${data.client.address.comp}\n` : "") +
       `${data.client.address.neighborhood} - ${data.client.address.city}/${data.client.address.state}\n` +
-      `${data.client.address.zip}\n`;
+      `${data.client.address.zip}`;
     if (data.companions.length > 0) {
-      message += "\n";
+      message += "\n\n";
       data.companions.forEach((c, i) => {
         const label =
           data.companions.length === 1
             ? "Acompanhante"
             : `Acompanhante ${i + 1}`;
-
-        message += `${label}:\nNome: ${c.name}\nCPF: ${c.cpf}\nData de Nascimento: ${c.birth}\n`;
+        message +=
+          `${label}:\n` +
+          `Nome: ${c.name}\n` +
+          `CPF: ${c.cpf}\n` +
+          `Data de Nascimento: ${c.birth}`;
+        if (i < data.companions.length - 1) {
+          message += "\n\n";
+        }
       });
     }
     return message;
@@ -199,9 +205,6 @@ function Form() {
     };
     setModalData(data);
     setShowModal(true);
-    {
-      //console.log("Dados para envio:", data);
-    }
   };
 
   const handleConfirm = () => {
@@ -216,10 +219,8 @@ function Form() {
 
   const sendToWhatsapp = () => {
     const total = calculateTotal();
-    const message =
-      dataMessage(modalData) + `Valor: R$ ${modalData.price}`;
+    const message = dataMessage(modalData) + `\n\nValor: R$ ${modalData.price}`;
     const url = `https://wa.me/5548984972129?text=${encodeURIComponent(message)}`;
-    console.log(dataMessage(modalData));
     window.open(url, "_blank");
   };
 
