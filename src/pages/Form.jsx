@@ -79,7 +79,7 @@ function Form() {
             ? "Acompanhante"
             : `Acompanhante ${i + 1}`;
 
-        message += `${label}:\nNome: ${c.name}\nCPF: ${c.cpf}\nData de Nascimento: ${c.birth}\n\n`;
+        message += `${label}:\nNome: ${c.name}\nCPF: ${c.cpf}\nData de Nascimento: ${c.birth}\n`;
       });
     }
     return message;
