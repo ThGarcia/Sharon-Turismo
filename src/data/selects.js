@@ -6,7 +6,7 @@ export const travels = [
   { id: "curitiba", name: "Curitiba" },
   { id: "foziguacu", name: "Foz do Iguaçu" },
   { id: "monteverde", name: "Monte Verde" },
-  { id: "laranjais", name: "Thermal dos Laranjais" },
+  { id: "laranjais", name: "Thermas dos Laranjais" },
 ];
 
 // Ufs
