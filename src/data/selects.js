@@ -1,12 +1,14 @@
 // travel destinations
 export const travels = [
   { id: "caioba", name: "Caiobá" },
-  /*{ id: "capitolio", name: "Capitólio" },*/
+  { id: "capitolio", name: "Capitólio" },
   { id: "historicas", name: "Cidades Históricas" },
   { id: "curitiba", name: "Curitiba" },
   { id: "foziguacu", name: "Foz do Iguaçu" },
   { id: "monteverde", name: "Monte Verde" },
-  { id: "laranjais", name: "Thermal dos Laranjais" },
+  { id: "laranjais", name: "Thermas dos Laranjais" },
+  { id: "holambra", name: "Roteiro do Vinho Holambra" },
+  { id: "jordao", name: "Campos do Jordão" },
 ];
 
 // Ufs

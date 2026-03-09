@@ -4,6 +4,7 @@ import Test from "../pages/Test";
 import Error from "../pages/Error";
 import Card from "../pages/Card";
 import Form from "../pages/Form";
+import Contract from "../pages/Contract";
 
 export default function AppRoutes() {
   return (
@@ -14,6 +15,7 @@ export default function AppRoutes() {
         <Route path="/error" element={<Error />} />
         <Route path="/card/:id" element={<Card />} />
         <Route path="/form/:id" element={<Form />} />
+        <Route path="/contract" element={<Contract />} />
       </Routes>
     </Router>
   );

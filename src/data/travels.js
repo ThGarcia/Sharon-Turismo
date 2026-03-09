@@ -5,6 +5,8 @@ import curitiba from "../assets/curitiba.png";
 import monteverde from "../assets/monteverde.png";
 import foziguacu from "../assets/foziguacu.png";
 import caioba from "../assets/caioba.png";
+import holambra from "../assets/holambra.png";
+import jordao from "../assets/jordao.png";
 
 export const travels = [
     {
@@ -146,5 +148,44 @@ export const travels = [
         obs: "",
         price: 1680.00,
     },
+    {
+        id: "holambra",
+        travel: "Roteiro do Vinho em Holambra",
+        img: holambra,
+        subtitle: "rota do vinho em Holambra.",
+        text: "Roteiro do vinho e ExpoFlora em Holambra 🤩🥰😎",
+        departure: "25/09/2026 às 22:00h",
+        return: "27/09/2026",
+        date: "25/09 à 27/09",
+        list: [
+            "Transporte em ônibus executivo.",
+            "1 Diária no Hotel com café da manhã.",
+            "Passeio pela famosa Rota do Vinho em São Roque.",
+            "Visita as melhores vinícolas da região.",
+            "Visita a Expoflora em Holambra.",
+        ],
+        obs: "",
+        price: 980.00,
+    },
+    {
+        id: "jordao",
+        travel: "Campos do Jordão - Natal Iluminado",
+        img: jordao,
+        subtitle: "Natal em Campos do Jordão.",
+        text: "Campos do Jordão, Natal iluminado 2026 🤩🥰😎",
+        departure: "19/11/2026",
+        return: "22/11/2026",
+        date: "19/11 à 21/11",
+        list: [
+            "Transporte em ônibus de turismo.",
+            "02 diárias em hotel próximo ao centro com café da manhã.",
+            "Passeio de trem.",
+            "Ingresso do Parque Amantikir.",
+            "Todos os passeios mencionados.",
+            "Guia Cadastur acompanhando toda a viagem.",
+            "Experiência especial do Natal Iluminado.",
+        ],
+        obs: "Quádruplo: R$ 1.280,00 | Tripo: R$ 1.360,00 | Duplo: R$ 1.480,00",
+        price: 0,
+    },
 ];
-
