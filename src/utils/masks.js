@@ -47,3 +47,23 @@ export function capitalizeName(value) {
     })
     .join(" ");
 }
+
+// Format -> money value 0.000,00
+export function maskBRL(value) {
+  const numbers = value.replace(/\D/g, "");
+
+  const cents = (Number(numbers) / 100).toFixed(2);
+
+  return cents
+    .replace(".", ",")
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+export function formatBRL(value) {
+  if (value === "" || value === null || value === undefined) return "";
+
+  return Number(value).toLocaleString("pt-BR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}

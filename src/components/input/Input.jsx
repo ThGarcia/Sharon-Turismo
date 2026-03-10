@@ -16,7 +16,8 @@ function Input({
 }) {
   const [touched, setTouched] = useState(false);
 
-  const isEmpty = !value || value.trim() === "";
+  const stringValue = value?.toString?.() || "";
+  const isEmpty = stringValue.trim() === "";
   const isValid = validator ? validator(value) : true;
   let status = "default";
   if (touched) {
@@ -28,7 +29,8 @@ function Input({
   const displayValue = transformDisplay ? transformDisplay(value) : value;
 
   useEffect(() => {
-    if (value && value.trim() !== "") {
+    const stringValue = value?.toString?.() || "";
+    if (stringValue.trim() !== "") {
       setTouched(true);
     }
   }, [value]);
