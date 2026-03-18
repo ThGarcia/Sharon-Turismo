@@ -1,4 +1,5 @@
-// Calculates age based on a date string in the format "DD/MM/YYYY"
+
+// Calculate age
 export function calculateAge(dateString) {
   if (!dateString) return 0;
 
@@ -16,9 +17,41 @@ export function calculateAge(dateString) {
   return age;
 }
 
-// Returns the price of a ticket based on the age of the person
+// Thermas price
 export function getThermasPriceByAge(age) {
   if (age <= 2) return 50;
   if (age <= 7) return 220;
   return 296;
+}
+
+// Principal function
+export function calculateTotal({ id, people, dates = [], price = 0 }) {
+  if (id === "laranjais") {
+    return dates.reduce((total, date) => {
+      const age = calculateAge(date);
+      return total + getThermasPriceByAge(age);
+    }, 0);
+  }
+
+  if (id === "jordao") {
+    let total = 0;
+    let remaining = people;
+
+    while (remaining > 0) {
+      if (remaining >= 4) {
+        total += 4 * 1280;
+        remaining -= 4;
+      } else if (remaining === 3) {
+        total += 3 * 1360;
+        remaining -= 3;
+      } else if (remaining <= 2) {
+        total += remaining * 1480;
+        remaining = 0;
+      }
+    }
+
+    return total;
+  }
+
+  return people * price;
 }

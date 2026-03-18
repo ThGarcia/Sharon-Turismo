@@ -1,4 +1,4 @@
-import { data, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { travels } from "../data/travels";
 import { states } from "../data/selects";
@@ -20,7 +20,7 @@ import {
   capitalizeName,
   maskDate,
 } from "../utils/masks";
-import { calculateAge, getThermasPriceByAge } from "../utils/calc";
+import { calculateTotal } from "../utils/calc";
 
 import Input from "../components/input/Input";
 import Modal from "../components/modal/Modal";
@@ -31,10 +31,6 @@ function Form() {
   const { id } = useParams();
   const navigate = useNavigate();
   const travel = travels.find((t) => t.id === id);
-  if (!travel) {
-    navigate("/error");
-    return null;
-  }
 
   const [clientName, setClientName] = useState("");
   const [clientCpf, setClientCpf] = useState("");
@@ -48,13 +44,16 @@ function Form() {
   const [ClientUf, setClientUf] = useState("");
   const [clientComp, setClientComp] = useState("");
   const [companions, setCompanions] = useState([]);
-  const [preview, setPreview] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState(null);
   const [showConfirmChange, setShowConfirmChange] = useState(false);
   const [companionToDelete, setCompanionToDelete] = useState(null);
   const [cepUnknown, setCepUnknown] = useState(false);
-  const people = companions.length + 1;
+
+  if (!travel) {
+    navigate("/error");
+    return null;
+  }
 
   const dataMessage = (data) => {
     let message =
@@ -127,20 +126,6 @@ function Form() {
     setShowConfirmChange(true);
   };
 
-  const calculateTotal = () => {
-    if (id !== "laranjais") {
-      return travel.price * people;
-    }
-    let total = 0;
-    const clientAge = calculateAge(clientBirth);
-    total += getThermasPriceByAge(clientAge);
-    companions.forEach((c) => {
-      const age = calculateAge(c.birth);
-      total += getThermasPriceByAge(age);
-    });
-    return total;
-  };
-
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -181,10 +166,20 @@ function Form() {
       }
     }
 
+    const people = companions.length + 1;
+
+    const total = calculateTotal({
+      id: travel.id,
+      people,
+      dates: [clientBirth, ...companions.map((c) => c.birth)],
+      price: travel.price,
+    });
+
     const data = {
       travel: travel.travel,
       data: travel.date,
       people,
+      price: total.toFixed(2).replace(".", ","),
       client: {
         name: clientName,
         cpf: clientCpf,
@@ -201,7 +196,6 @@ function Form() {
         },
       },
       companions,
-      price: calculateTotal().toFixed(2).replace(".", ","),
     };
     setModalData(data);
     setShowModal(true);
@@ -219,7 +213,6 @@ function Form() {
   };
 
   const sendToWhatsapp = () => {
-    const total = calculateTotal();
     const message = dataMessage(modalData) + `\n\nValor: R$ ${modalData.price}`;
     const url = `https://wa.me/5548984972129?text=${encodeURIComponent(message)}`;
     //console.log(dataMessage(modalData));

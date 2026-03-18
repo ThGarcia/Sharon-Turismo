@@ -3,6 +3,7 @@ import { travels } from "../data/travels";
 import "../App.css";
 
 import Button from "../components/button/Button";
+import { formatPrice } from "../utils/masks";
 
 function Card() {
   const { id } = useParams();
@@ -42,8 +43,15 @@ function Card() {
       </div>
       {travel.obs && (
         <div className="card-obs">
-          <p>Obs.:</p>
-          <p>{travel.obs}</p>
+          <p>Valor:</p>
+          {travel.obs.map((item, i) => (
+            <p className="card-obs-itens" key={i}>- {item}</p>
+          ))}
+        </div>
+      )}
+      {travel.price && (
+        <div className="card-obs">
+          <p>Valor: {formatPrice(travel.price)}.</p>
         </div>
       )}
       <p>Entre em contato para mais informações:</p>

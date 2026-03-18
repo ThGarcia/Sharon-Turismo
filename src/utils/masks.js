@@ -47,3 +47,12 @@ export function capitalizeName(value) {
     })
     .join(" ");
 }
+
+// Price value formatation
+export function formatPrice(value) {
+  if (value === "" || value === null || value === undefined) return "";
+  return Number(value).toLocaleString("pt-br", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}

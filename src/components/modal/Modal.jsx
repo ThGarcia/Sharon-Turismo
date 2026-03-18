@@ -12,6 +12,12 @@ import Button from "../button/Button";
 function Modal({ data, onConfirm, onCancel }) {
   if (!data) return null;
 
+  const formattedPrice = data.price.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+
+
   return (
     <div className="modal-container" onClick={onCancel}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
@@ -25,6 +31,10 @@ function Modal({ data, onConfirm, onCancel }) {
             <div className="modal-data">
               <label className="modal-label">Viajantes: </label>
               <p>{data.people}</p>
+            </div>
+            <div className="modal-data">
+              <label className="modal-label">Valor: </label>
+              <p>{formattedPrice}</p>
             </div>
             <div className="modal-data">
               <label className="modal-label">Data: </label>

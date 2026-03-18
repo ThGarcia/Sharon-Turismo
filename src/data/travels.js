@@ -63,8 +63,12 @@ export const travels = [
             "Transporte em ônibus especial de turismo com guia acompanhante.",
             "Ingresso no parque aquático.",
         ],
-        obs: "Valor por pessoa: até 2 anos: R$ 50,00 | 2 a 7 anos: R$ 220,00 | Acima de 7 anos: R$ 296,00.",
-        price: 0,
+        obs: [
+          "Até 2 anos: R$ 50,00.",
+          "2 a 7 anos: R$ 220,00.",
+          "Acima de 7 anos: R$ 296,00.",  
+        ],
+        price: "",
     },
     {
         id: "curitiba",
@@ -185,7 +189,11 @@ export const travels = [
             "Guia Cadastur acompanhando toda a viagem.",
             "Experiência especial do Natal Iluminado.",
         ],
-        obs: "Quádruplo: R$ 1.280,00 | Tripo: R$ 1.360,00 | Duplo: R$ 1.480,00",
-        price: 0,
+        obs: [
+          "Quarto quadruplo: R$ 1.280,00.",
+          "Quarto triplo: R$ 1.360,00.",
+          "Quarto duplo: R$ 1.480,00.",
+        ],
+        price: "",
     },
 ];
